@@ -212,7 +212,8 @@ def append_average_row(df):
     # Remove the students who has zero PC in any column
     df = df[(df != 0).all(1)].reset_index(drop=True)
     
+    df_copy = df.copy(deep=True)
     # Convert it to percentage
     df.iloc[:, 3:] = '%' + (df.iloc[:, 3:] * 100).round(1).astype(str)
     
-    return df
+    return df, df_copy

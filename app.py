@@ -66,13 +66,13 @@ with dataset:
             'Mezuniyet Yılı': [],
             'Mezuniyet Tarihi': []
             }
-    df = pd.DataFrame(data)
+    df_sample = pd.DataFrame(data)
          
     # Add a checkbox to show/hide the DataFrame
     show_df = st.checkbox("Check the box to see the required format")
     if show_df:
         st.write("Excel format for Graduation List:")
-        st.dataframe(df)  # Display the DataFrame when the checkbox is checked
+        st.dataframe(df_sample)  # Display the DataFrame when the checkbox is checked
     ###################################
         
 
@@ -137,7 +137,7 @@ with results:
 
             st.title('Result')
             df = process_result_dfs_v3(result_dfs, df_pc_dersler)
-            df = append_average_row(df)
+            df, df_copy = append_average_row(df)
             st.table(df)
 
             # Create a download button
@@ -160,3 +160,21 @@ with results:
             # Display a warning message
             st.warning("This is a warning message. Please upload the necessary files.")
             
+        
+        # Extract column names and percentages for plotting
+        columns = df_copy.columns[3:]  
+        percentages = df_copy.iloc[-1, 3:] * 100
+
+        # Create a bar plot
+        plt.figure(figsize=(10, 6))
+        plt.bar(columns, percentages, color='blue')
+        plt.xlabel('Performance Outcomes')
+        plt.ylabel('Average Performance Outcomes Success Percentage (%)')
+        plt.title('Average Success Percentages by Performance Outcomes')
+        
+        # Add horizontal grid lines behind the bars
+        for y in range(0, 101, 10):
+            plt.axhline(y, color='gray', linestyle='--', linewidth=0.5, zorder=0)
+
+        # Display the plot
+        st.pyplot(plt)
