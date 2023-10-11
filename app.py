@@ -69,7 +69,7 @@ with dataset:
     df = pd.DataFrame(data)
          
     # Add a checkbox to show/hide the DataFrame
-    show_df = st.checkbox("Check the box to see the required format:")
+    show_df = st.checkbox("Check the box to see the required format")
     if show_df:
         st.write("Excel format for Graduation List:")
         st.dataframe(df)  # Display the DataFrame when the checkbox is checked
