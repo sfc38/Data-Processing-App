@@ -67,15 +67,12 @@ with dataset:
             'Mezuniyet Tarihi': []
             }
     df = pd.DataFrame(data)
-    
-    # Add a button to open the DataFrame in a new tab
-    if st.button("Show the format of the Graduation List in New Tab"):
-        # Save the DataFrame to an HTML file
-        df.to_html("dataframe.html", index=False)
-
-        # Open the HTML file in a new tab
-        new_tab_url = "dataframe.html"
-        webbrowser.open_new_tab(new_tab_url)
+         
+    # Add a checkbox to show/hide the DataFrame
+    show_df = st.checkbox("Check the box to see the required format:")
+    if show_df:
+        st.write("Excel format for Graduation List:")
+        st.dataframe(df)  # Display the DataFrame when the checkbox is checked
     ###################################
         
 
